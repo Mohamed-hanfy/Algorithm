@@ -26,29 +26,27 @@ void fast() {
 }
 const int N=1e5;
 int arr[N];
-
-pair<int,int> min_max(int l,int r){
-    if(l==r){
-        return make_pair(arr[l],arr[l]);
-    }else if(r==l+1){
-        return (arr[l]<arr[r]?make_pair(arr[l],arr[r]):make_pair(arr[r],arr[l]));
-    }else{
-        int md=(l+r)/2;
-        pair<int,int> left_result = min_max(l,md);
-        pair<int,int> right_result = min_max(md+1,r);
-        int min_val = min(left_result.first,right_result.first);
-        int max_val = max(left_result.second,right_result.second);
-        return make_pair(min_val,max_val);
-    }
-}
 void solve() {
-int n; cin >>n;
-for (int i = 0; i < n; i++)
-{
-    cin >>arr[i];
-}
-pair<int,int>mn_mx=min_max(0,n-1);
-cout<<mn_mx.first<<" "<<mn_mx.second;
+    int n,k;
+    cin >>n>>k;
+    int arr[n];
+    for (int i = 0; i < n; i++)
+    {
+            cin >>arr[i];
+    }
+    int l=0 ,r=n;
+    while (l<=r)
+    {
+        int md = l+(r-l)/2;
+        if(arr[md]==k){
+            cout<<md+1;
+            return;
+        }else if(arr[md]>k){
+            r=md-1;
+        }else{
+            l=md+1;
+        }
+    }
 }
 int main() {
     fast();
